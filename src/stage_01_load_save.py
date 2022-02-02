@@ -9,7 +9,7 @@ def copy_file(source_download_dir, local_data_dir):
     list_of_files = os.listdir(source_download_dir)
     N = len(list_of_files)
     for file in tqdm(list_of_files, total=N, desc=f" copying file from {source_download_dir} to {local_data_dir}",
-    color="green" ):
+    colour="green" ):
         src = os.path.join(source_download_dir, file)
         dest = os.path.join(local_data_dir, file)
         shutil.copy(src, dest)
@@ -21,7 +21,7 @@ def get_data(config_path):
     local_data_dirs = config["local_data_dirs"]
 
     for source_download_dir, local_data_dir in tqdm(zip(source_download_dirs, local_data_dirs), total=2, desc="iterate folders", 
-    color="red"):
+    colour="red"):
         create_directory([local_data_dir])
         copy_file(source_download_dir, local_data_dir)
 
