@@ -4,6 +4,13 @@ import pandas as pd
 import os
 import shutil
 from tqdm import tqdm
+import logging
+
+logging_str = "[%(asctime)s : %(levelname)s: %(module)s] : %(message)s"
+logging_dir = "logs"
+os.makedirs(logging_dir, exist_ok=True)
+logging.basicConfig(filename=os.path.join(logging_dir, "runninglog.log"), level=logging.INFO,
+format=logging_str, filemode="a")
 
 def copy_file(source_download_dir, local_data_dir):
     list_of_files = os.listdir(source_download_dir)
@@ -33,4 +40,10 @@ if __name__ == "__main__":
 
     parsed_args = args.parse_args()
 
-    get_data(parsed_args.config)
+    try:
+        logging.info("stage_01 task is started")
+        get_data(parsed_args.config)
+        logging.info("stage_01 task is completed. All data is saved in local")
+    except Exception as e:
+        logging.exception(e)
+        raise e
